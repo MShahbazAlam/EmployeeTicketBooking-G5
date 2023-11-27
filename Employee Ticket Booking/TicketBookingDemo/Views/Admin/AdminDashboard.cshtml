@@ -6,7 +6,7 @@
 
 
 <div>
-    <h2>Welcome to Admin Dashboard</h2>
+    <h2>Welcome to Admin Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.ActionLink("Logout", "Index", "Login", null, new { @class = "logout-button" })</h2>
     <br />
     <h3>Manage Managers</h3>
     <p>
@@ -89,5 +89,19 @@
 
         a:hover {
             background-color: #5e87b8;
+        }
+    .logout-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #f44336; /* Change to your desired color */
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .logout-button:hover {
+            background-color: #d32f2f; /* Change to your desired hover color */
         }
 </style>

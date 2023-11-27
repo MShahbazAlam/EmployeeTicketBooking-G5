@@ -1,19 +1,20 @@
 ﻿@{
     ViewBag.Title = "Employee Dashboard";
-  
+
 }
 
-<h2>Welcome to the Employee Dashboard</h2>
+<h2>Welcome to the Employee Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.ActionLink("Logout", "Index", "Login", null, new { @class = "logout-button" })</h2>
+
 
 <div>
- <br />
+    <br />
     <ul>
         <li>@Html.ActionLink("Request Travel", "RequestTravel", "Employee")</li>
         <br />
         <li>@Html.ActionLink("View Travel List", "TravelList", "Employee")</li>
         <br />
         <li>@Html.ActionLink("Track Travel List Status", "TrackTravel", "Employee")</li>
-     
+
     </ul>
 </div>
 
@@ -67,4 +68,20 @@
         a:hover {
             background-color: #5e87b8;
         }
+    /* Styles for Logout Button */
+    .logout-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #f44336; 
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .logout-button:hover {
+            background-color: #d32f2f; 
+        }
+
 </style>

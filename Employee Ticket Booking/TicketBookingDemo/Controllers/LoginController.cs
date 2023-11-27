@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TicketBookingDemo.Models;
 using System.Data.Entity;
 using TicketBookingDemo.Services;
+using System.Web.Security;
 
 namespace TicketBookingDemo.Controllers
 {
@@ -84,6 +85,16 @@ namespace TicketBookingDemo.Controllers
         {
             return View("EmployeeLoginView");
         }
-       
+
+        public ActionResult Logout()
+        {
+            // Sign out the user (using Forms Authentication, adjust for your authentication mechanism)
+            FormsAuthentication.SignOut();
+
+            // Clear session or perform any other logout-related operations if needed
+
+            // Redirect to the login page or any other desired page after logout
+            return RedirectToAction("Index", "Login"); // Change "Login" and "Account" as per your login page's action and controller names
+        }
     }
 }

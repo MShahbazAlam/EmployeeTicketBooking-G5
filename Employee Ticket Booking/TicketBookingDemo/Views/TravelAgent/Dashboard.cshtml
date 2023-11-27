@@ -1,0 +1,83 @@
+﻿@model List<TicketBookingDemo.Models.TravelRequestDetail>
+
+<h2>Travel Agent Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.ActionLink("Logout", "Index", "Login", null, new { @class = "logout-button" })</h2>
+
+<table>
+    <tr>
+        <th>Request ID</th>
+        <th>Destination</th>
+        <th>Manager Status</th>
+        <th>Agent Action</th>
+    </tr>
+    @foreach (var request in Model)
+    {
+<tr>
+    <td>@request.RequestId</td>
+    <td>@request.TravelDestination</td>
+    <td>@request.ManagerStatus</td>
+    
+    <td>
+        @if (request.AgentStatus == "Pending" && request.ManagerStatus == "Approved")
+
+        {
+            using (Html.BeginForm("HandleBooking", "TravelAgent", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="requestId" value="@request.RequestId" />
+                <input type="hidden" name="action" value="book" />
+                <input type="submit" value="Book" />
+            }
+            using (Html.BeginForm("HandleBooking", "TravelAgent", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="requestId" value="@request.RequestId" />
+                <input type="hidden" name="action" value="cancel" />
+                <input type="submit" value="Cancel" />
+            }
+        }
+        else
+        {
+
+            <span>Already Booked or Canceled or Waiting Manager Approval</span>
+        }
+    </td>
+</tr>
+    }
+</table>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 10px;
+        padding: 40px;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #5e87b8; 
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #dddddd;
+    }
+    .logout-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #f44336; /* Change to your desired color */
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .logout-button:hover {
+            background-color: #d32f2f; /* Change to your desired hover color */
+        }
+    
+</style>
