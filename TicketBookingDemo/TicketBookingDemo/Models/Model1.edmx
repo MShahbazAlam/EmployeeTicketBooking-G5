@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EmployeeTicketBookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EmployeeTicketBooking.dbo.AdminLogin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AdminLogin">
+          <Key>
+            <PropertyRef Name="AdminPswd" />
+          </Key>
+          <Property Name="AdminId" Type="nvarchar(max)" />
+          <Property Name="AdminPswd" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Empid" />
+          </Key>
+          <Property Name="Empid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DOJ" Type="date" Nullable="false" />
+          <Property Name="EDeptName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar(max)" />
+          <Property Name="RepMgrId" Type="int" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="15" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="EmpPassword" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Managers">
+          <Key>
+            <PropertyRef Name="MgrId" />
+          </Key>
+          <Property Name="MgrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DOJ" Type="date" Nullable="false" />
+          <Property Name="MDeptName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RepMgrId" Type="int" Nullable="false" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MgrPassword" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TravelAgent">
+          <Key>
+            <PropertyRef Name="AgentId" />
+          </Key>
+          <Property Name="AgentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Agencyid" Type="int" Nullable="false" />
+          <Property Name="AgentPassword" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TravelRequestDetails">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpId" Type="int" />
+          <Property Name="EmpMgrId" Type="int" />
+          <Property Name="TravelSource" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TravelDestination" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Purpose" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DepartureDate" Type="date" Nullable="false" />
+          <Property Name="ReturnDate" Type="date" Nullable="false" />
+          <Property Name="TravelMode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ManagerStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="AgentStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="CostInvolved" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Employees__RepMg__2B3F6F97">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="MgrId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="RepMgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TravelReq__EmpId__4E88ABD4">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="TravelRequestDetails" Type="Self.TravelRequestDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Empid" />
+            </Principal>
+            <Dependent Role="TravelRequestDetails">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TravelReq__EmpMg__4F7CD00D">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+          <End Role="TravelRequestDetails" Type="Self.TravelRequestDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="MgrId" />
+            </Principal>
+            <Dependent Role="TravelRequestDetails">
+              <PropertyRef Name="EmpMgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmployeeTicketBookingModelStoreContainer">
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TravelAgent" EntityType="Self.TravelAgent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TravelRequestDetails" EntityType="Self.TravelRequestDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminLogin" EntityType="Self.AdminLogin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AdminLogin].[AdminId] AS [AdminId], 
+    [AdminLogin].[AdminPswd] AS [AdminPswd]
+    FROM [dbo].[AdminLogin] AS [AdminLogin]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Employees__RepMg__2B3F6F97" Association="Self.FK__Employees__RepMg__2B3F6F97">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TravelReq__EmpId__4E88ABD4" Association="Self.FK__TravelReq__EmpId__4E88ABD4">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TravelRequestDetails" EntitySet="TravelRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TravelReq__EmpMg__4F7CD00D" Association="Self.FK__TravelReq__EmpMg__4F7CD00D">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="TravelRequestDetails" EntitySet="TravelRequestDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmployeeTicketBookingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Empid" />
+          </Key>
+          <Property Name="Empid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EDeptName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RepMgrId" Type="Int32" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmpPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Manager" Relationship="Self.FK__Employees__RepMg__2B3F6F97" FromRole="Employees" ToRole="Managers" />
+          <NavigationProperty Name="TravelRequestDetails" Relationship="Self.FK__TravelReq__EmpId__4E88ABD4" FromRole="Employees" ToRole="TravelRequestDetails" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="MgrId" />
+          </Key>
+          <Property Name="MgrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MDeptName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RepMgrId" Type="Int32" Nullable="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MgrPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__RepMg__2B3F6F97" FromRole="Managers" ToRole="Employees" />
+          <NavigationProperty Name="TravelRequestDetails" Relationship="Self.FK__TravelReq__EmpMg__4F7CD00D" FromRole="Managers" ToRole="TravelRequestDetails" />
+        </EntityType>
+        <EntityType Name="TravelAgent">
+          <Key>
+            <PropertyRef Name="AgentId" />
+          </Key>
+          <Property Name="AgentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Agencyid" Type="Int32" Nullable="false" />
+          <Property Name="AgentPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TravelRequestDetail">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpId" Type="Int32" />
+          <Property Name="EmpMgrId" Type="Int32" />
+          <Property Name="TravelSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TravelDestination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Purpose" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartureDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TravelMode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManagerStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AgentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CostInvolved" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__TravelReq__EmpId__4E88ABD4" FromRole="TravelRequestDetails" ToRole="Employees" />
+          <NavigationProperty Name="Manager" Relationship="Self.FK__TravelReq__EmpMg__4F7CD00D" FromRole="TravelRequestDetails" ToRole="Managers" />
+        </EntityType>
+        <EntityType Name="AdminLogin">
+          <Key>
+            <PropertyRef Name="AdminPswd" />
+          </Key>
+          <Property Name="AdminId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdminPswd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Employees__RepMg__2B3F6F97">
+          <End Role="Managers" Type="Self.Manager" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="MgrId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="RepMgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TravelReq__EmpId__4E88ABD4">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="TravelRequestDetails" Type="Self.TravelRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Empid" />
+            </Principal>
+            <Dependent Role="TravelRequestDetails">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TravelReq__EmpMg__4F7CD00D">
+          <End Role="Managers" Type="Self.Manager" Multiplicity="0..1" />
+          <End Role="TravelRequestDetails" Type="Self.TravelRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="MgrId" />
+            </Principal>
+            <Dependent Role="TravelRequestDetails">
+              <PropertyRef Name="EmpMgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmployeeTicketBookingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <EntitySet Name="TravelAgents" EntityType="Self.TravelAgent" />
+          <EntitySet Name="TravelRequestDetails" EntityType="Self.TravelRequestDetail" />
+          <EntitySet Name="AdminLogins" EntityType="Self.AdminLogin" />
+          <AssociationSet Name="FK__Employees__RepMg__2B3F6F97" Association="Self.FK__Employees__RepMg__2B3F6F97">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TravelReq__EmpId__4E88ABD4" Association="Self.FK__TravelReq__EmpId__4E88ABD4">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TravelRequestDetails" EntitySet="TravelRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TravelReq__EmpMg__4F7CD00D" Association="Self.FK__TravelReq__EmpMg__4F7CD00D">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="TravelRequestDetails" EntitySet="TravelRequestDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmployeeTicketBookingModelStoreContainer" CdmEntityContainer="EmployeeTicketBookingEntities">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="EmployeeTicketBookingModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="Empid" ColumnName="Empid" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="EDeptName" ColumnName="EDeptName" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="RepMgrId" ColumnName="RepMgrId" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmpPassword" ColumnName="EmpPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="EmployeeTicketBookingModel.Manager">
+              <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="MgrId" ColumnName="MgrId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="MDeptName" ColumnName="MDeptName" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="RepMgrId" ColumnName="RepMgrId" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MgrPassword" ColumnName="MgrPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelAgents">
+            <EntityTypeMapping TypeName="EmployeeTicketBookingModel.TravelAgent">
+              <MappingFragment StoreEntitySet="TravelAgent">
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Agencyid" ColumnName="Agencyid" />
+                <ScalarProperty Name="AgentPassword" ColumnName="AgentPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelRequestDetails">
+            <EntityTypeMapping TypeName="EmployeeTicketBookingModel.TravelRequestDetail">
+              <MappingFragment StoreEntitySet="TravelRequestDetails">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="EmpMgrId" ColumnName="EmpMgrId" />
+                <ScalarProperty Name="TravelSource" ColumnName="TravelSource" />
+                <ScalarProperty Name="TravelDestination" ColumnName="TravelDestination" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="TravelMode" ColumnName="TravelMode" />
+                <ScalarProperty Name="ManagerStatus" ColumnName="ManagerStatus" />
+                <ScalarProperty Name="AgentStatus" ColumnName="AgentStatus" />
+                <ScalarProperty Name="CostInvolved" ColumnName="CostInvolved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminLogins">
+            <EntityTypeMapping TypeName="EmployeeTicketBookingModel.AdminLogin">
+              <MappingFragment StoreEntitySet="AdminLogin">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AdminPswd" ColumnName="AdminPswd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

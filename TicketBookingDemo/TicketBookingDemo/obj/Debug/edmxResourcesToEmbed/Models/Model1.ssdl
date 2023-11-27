@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeTicketBookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EmployeeTicketBooking.dbo.AdminLogin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="AdminLogin">
+    <Key>
+      <PropertyRef Name="AdminPswd" />
+    </Key>
+    <Property Name="AdminId" Type="nvarchar(max)" />
+    <Property Name="AdminPswd" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Empid" />
+    </Key>
+    <Property Name="Empid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="DOJ" Type="date" Nullable="false" />
+    <Property Name="EDeptName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Designation" Type="nvarchar(max)" />
+    <Property Name="RepMgrId" Type="int" />
+    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="15" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="EmpPassword" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Managers">
+    <Key>
+      <PropertyRef Name="MgrId" />
+    </Key>
+    <Property Name="MgrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="DOJ" Type="date" Nullable="false" />
+    <Property Name="MDeptName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Designation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RepMgrId" Type="int" Nullable="false" />
+    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MgrPassword" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="TravelAgent">
+    <Key>
+      <PropertyRef Name="AgentId" />
+    </Key>
+    <Property Name="AgentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Agencyid" Type="int" Nullable="false" />
+    <Property Name="AgentPassword" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="TravelRequestDetails">
+    <Key>
+      <PropertyRef Name="RequestId" />
+    </Key>
+    <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpId" Type="int" />
+    <Property Name="EmpMgrId" Type="int" />
+    <Property Name="TravelSource" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TravelDestination" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Purpose" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DepartureDate" Type="date" Nullable="false" />
+    <Property Name="ReturnDate" Type="date" Nullable="false" />
+    <Property Name="TravelMode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ManagerStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="AgentStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="CostInvolved" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK__Employees__RepMg__2B3F6F97">
+    <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Managers">
+        <PropertyRef Name="MgrId" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="RepMgrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelReq__EmpId__4E88ABD4">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="TravelRequestDetails" Type="Self.TravelRequestDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="Empid" />
+      </Principal>
+      <Dependent Role="TravelRequestDetails">
+        <PropertyRef Name="EmpId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelReq__EmpMg__4F7CD00D">
+    <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+    <End Role="TravelRequestDetails" Type="Self.TravelRequestDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Managers">
+        <PropertyRef Name="MgrId" />
+      </Principal>
+      <Dependent Role="TravelRequestDetails">
+        <PropertyRef Name="EmpMgrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmployeeTicketBookingModelStoreContainer">
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelAgent" EntityType="Self.TravelAgent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelRequestDetails" EntityType="Self.TravelRequestDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdminLogin" EntityType="Self.AdminLogin" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [AdminLogin].[AdminId] AS [AdminId], 
+    [AdminLogin].[AdminPswd] AS [AdminPswd]
+    FROM [dbo].[AdminLogin] AS [AdminLogin]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Employees__RepMg__2B3F6F97" Association="Self.FK__Employees__RepMg__2B3F6F97">
+      <End Role="Managers" EntitySet="Managers" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelReq__EmpId__4E88ABD4" Association="Self.FK__TravelReq__EmpId__4E88ABD4">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="TravelRequestDetails" EntitySet="TravelRequestDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelReq__EmpMg__4F7CD00D" Association="Self.FK__TravelReq__EmpMg__4F7CD00D">
+      <End Role="Managers" EntitySet="Managers" />
+      <End Role="TravelRequestDetails" EntitySet="TravelRequestDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

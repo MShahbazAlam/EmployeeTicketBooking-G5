@@ -1,0 +1,214 @@
+﻿@model TicketBookingDemo.Models.TravelRequestDetail
+@{
+    ViewBag.Title = "RequestTravel";
+}
+
+<h2>Request Travel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="@Url.Action("EmployeeDashBoard", "Employee")"> Home</a></h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-container">
+        <h2 class="text-center"> REQUEST TRAVEL</h2>
+        <br />
+        <div class="form-fields">
+            <div>
+                @Html.LabelFor(model => model.EmpId)
+                @Html.TextBoxFor(model => model.EmpId)
+                @Html.ValidationMessageFor(model => model.EmpId)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.EmpMgrId)
+                @Html.TextBoxFor(model => model.EmpMgrId)
+                @Html.ValidationMessageFor(model => model.EmpMgrId)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.TravelSource)
+                @Html.TextBoxFor(model => model.TravelSource)
+                @Html.ValidationMessageFor(model => model.TravelSource)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.TravelDestination)
+                @Html.TextBoxFor(model => model.TravelDestination)
+                @Html.ValidationMessageFor(model => model.TravelDestination)
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.Purpose)
+                @Html.TextBoxFor(model => model.Purpose, new { @class = "form-control", placeholder = "Reason for Travel" })
+                @Html.ValidationMessageFor(model => model.Purpose, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.DepartureDate)
+                @Html.TextBoxFor(model => model.DepartureDate, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.ReturnDate)
+                @Html.TextBoxFor(model => model.ReturnDate, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.TravelMode)
+                @Html.DropDownListFor(model => model.TravelMode, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Airplane", Value = "Airplane" },
+                        new SelectListItem { Text = "Train", Value = "Train" },
+                        new SelectListItem { Text = "Car", Value = "Car" },
+                        new SelectListItem { Text= "Ship", Value ="Ship"}
+                }, "Select Travel Mode")
+                @Html.ValidationMessageFor(model => model.TravelMode)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.ManagerStatus)
+                @Html.DropDownListFor(model => model.ManagerStatus, new List<SelectListItem>
+           {
+               new SelectListItem{Text="Pending", Value="Pending" } })
+                @Html.ValidationMessageFor(model => model.ManagerStatus)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.AgentStatus)
+                @Html.DropDownListFor(model => model.AgentStatus, new List<SelectListItem>
+           {
+               new SelectListItem{Text="Pending", Value="Pending" } })
+                @Html.ValidationMessageFor(model => model.AgentStatus)
+            </div>
+        </div>
+
+        <div class="button-container">
+            <input type="submit" value="Create" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="reset" value="Reset" />
+        </div>
+    </div>
+}
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #5e87b8;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        background-color: #d5eeff;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 55%;
+        text-align: left;
+        box-sizing: border-box;
+        margin: auto; 
+        margin-top: 150px;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333333;
+        width: 50%; 
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"],
+    select {
+        width: 75%; 
+        padding: 8px;
+        margin-bottom: 12px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    .form-fields {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    a {
+        color: #46a2da;
+        text-decoration: none;
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .form-fields div {
+            width: 48%;  
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+            .form-fields div:nth-child(odd) {
+                margin-right: 4%;  
+            }
+
+        .form-fields label {
+            width: 100%;
+        }
+
+        .form-fields select,
+        .form-fields input[type="text"],
+        .form-fields input[type="password"],
+        .form-fields input[type="email"],
+        .form-fields input[type="date"] {
+            width: calc(100% - 8px);  
+        }
+
+    .button-container {
+        text-align: center;
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;  
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        background-color: White;
+        color: black;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin: 0 2%;  
+        width: 30%; 
+    }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #5e87b8;
+        }
+
+    h2 {
+        color: black; /* Change heading text color */
+        font-size: large;
+    }
+
+    .field-validation-error {
+        color: red;
+        margin-top: 5px;
+    }
+</style>

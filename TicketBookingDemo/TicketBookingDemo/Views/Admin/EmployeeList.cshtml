@@ -1,0 +1,125 @@
+﻿@model List<TicketBookingDemo.Models.Employee>
+@{
+    ViewBag.Title = "EmployeeList";
+}
+
+<h2>Employee &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="@Url.Action("AdminDashBoard", "Admin")">Admin Home</a></h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>D O B</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>D O J </th>
+            <th>Dept Name</th>
+            <th>Designation</th>
+            <th>Rep Mgr ID</th>
+            <th>Marital Status</th>
+            <th>Address</th>
+            <th>Password</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+        <tr>
+            <td>@emp.Empid</td>
+            <td>@emp.Name</td>
+            <td>@emp.DOB.ToShortDateString()</td>
+            <td>@emp.Gender</td>
+            <td>@emp.Email</td>
+            <td>@emp.PhoneNumber</td>
+            <td>@emp.DOJ.ToShortDateString()</td>
+            <td>@emp.EDeptName</td>
+            <td>@emp.Designation</td>
+            <td>@emp.RepMgrId</td>
+            <td>@emp.MaritalStatus</td>
+            <td>@emp.Address</td>
+            <td>@emp.EmpPassword</td>
+            <td>
+                <a href="@Url.Action("EditEmployee", "Admin", new { id = emp.Empid })">Edit</a>
+            </td>
+            <td>
+                <form method="post" action="@Url.Action("DeleteEmployee", "Admin", new { id = emp.Empid })">
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this Employee9?');" />
+                </form>
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    table {
+        width: 140%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #d5eeff; 
+    }
+
+    thead {
+        background-color: #5e87b8;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #dddddd;
+    }
+
+    /* tr:hover {
+        background-color: #f5f5f5;
+    }*/
+    a {
+        color: #46a2da;
+        text-decoration: none;
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    input[type="submit"] {
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 20px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+</style>

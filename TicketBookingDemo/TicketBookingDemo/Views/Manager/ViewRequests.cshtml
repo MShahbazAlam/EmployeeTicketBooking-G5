@@ -1,0 +1,125 @@
+﻿@model List<TicketBookingDemo.Models.TravelRequestDetail>
+@{
+    ViewBag.Title = "View Travel Requests";
+}
+<h2>View Travel Requests&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="@Url.Action("ManagerDashBoard", "Manager")"> Home</a></h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Departure Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+        <tr>
+            <td>@request.RequestId</td>
+            <td>@request.TravelSource</td>
+            <td>@request.TravelDestination</td>
+            <td>@request.DepartureDate.ToShortDateString()</td>
+            <td>@request.ReturnDate.ToShortDateString()</td>
+            <td>@request.ManagerStatus</td>
+            <td>
+                @if (request.ManagerStatus == "Pending")
+                {
+                    <form action="@Url.Action("ProcessRequest", "Manager")" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="requestId" value="@request.RequestId" />
+                        <select name="decision">
+                            <option value="accept">Accept</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                        <input type="submit" value="Submit" />
+                    </form>
+                }
+                else
+         
+                {
+                <span>No action required</span>
+                }
+            </td>
+            <td>
+                @if (request.ManagerStatus == "Rejected")
+                   
+                        {@request.RejectionReason}
+                    </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #d5eeff;
+        margin: 10px;
+        padding: 40px;
+        text-align: center;
+    }
+
+    table {
+        width: 90%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    thead {
+        background-color: #5e87b8;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #dddddd;
+    }
+
+    /* tr:hover {
+        background-color: #f5f5f5;
+    }*/
+
+    a {
+        color: #46a2da;
+        text-decoration: none;
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    input[type="submit"] {
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+</style>

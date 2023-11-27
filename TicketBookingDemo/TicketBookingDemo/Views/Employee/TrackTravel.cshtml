@@ -1,0 +1,109 @@
+﻿@model List<TicketBookingDemo.Models.TravelRequestDetail>
+@{
+    ViewBag.Title = "TrackTravel";
+}
+
+<h2>Status Of Travel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="@Url.Action("EmployeeDashBoard", "Employee")"> Home</a></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Request Id</th>
+            <th>Employee ID</th>
+            <th>Reporting Manager Id</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Reason For Travel</th>
+            <th>Departure Date</th>
+            <th>Return Date</th>
+            <th>Travel Mode</th>
+            <th>Manager Status</th>
+            <th>Agent Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.RequestId</td>
+                <td>@request.EmpId</td>
+                <td>@request.EmpMgrId</td>
+                <td>@request.TravelSource</td>
+                <td>@request.TravelDestination</td>
+                <td>@request.Purpose</td>
+                <td>@request.DepartureDate.ToShortDateString()</td>
+                <td>@request.ReturnDate.ToShortDateString()</td>
+                <td>@request.TravelMode</td>
+                <td>@request.ManagerStatus</td>
+                <td>@request.AgentStatus</td>
+           
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 10px;
+        padding: 40px;
+        text-align: center;
+    }
+
+    table {
+        width: 120%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    thead {
+        background-color: #5e87b8;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #dddddd;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    a {
+        color: #46a2da;
+        text-decoration: none;
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    input[type="submit"] {
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+</style>

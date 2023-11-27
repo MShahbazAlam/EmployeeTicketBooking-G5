@@ -1,0 +1,207 @@
+﻿@model TicketBookingDemo.Models.Manager
+
+@using (Html.BeginForm())
+{
+<div class="form-container">
+
+    <h2 class="text-center"> EDIT MANAGER  </h2>
+    <br />
+    <div class="form-fields">
+        @Html.HiddenFor(model => model.MgrId)
+
+        <div>
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "from-control", placeholder = "Manager Name" })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.DOB)
+            @Html.TextBoxFor(model => model.DOB, new { @class = "from-control", type = "date", placeholder = "Date Of Birth" })
+            @Html.ValidationMessageFor(model => model.DOB)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Gender)
+            @Html.DropDownListFor(model => model.Gender, new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Male", Value = "Male" },
+                new SelectListItem { Text = "Female", Value = "Female" },
+                new SelectListItem { Text = "Other", Value = "Other" }
+            }, "Select Gender")
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "from-control", placeholder = "Email" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.PhoneNumber)
+            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "from-control", placeholder = "Phone Number" })
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.DOJ)
+            @Html.TextBoxFor(model => model.DOJ, new { @class = "from-control", type = "date", placeholder = "Date Of Joining" })
+            @Html.ValidationMessageFor(model => model.DOJ)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.MDeptName)
+            @Html.TextBoxFor(model => model.MDeptName, new { @class = "from-control", placeholder = "Department Name" })
+            @Html.ValidationMessageFor(model => model.MDeptName)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Designation)
+            @Html.TextBoxFor(model => model.Designation, new { @class = "from-control", placeholder = "Designation" })
+            @Html.ValidationMessageFor(model => model.Designation)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.RepMgrId)
+            @Html.TextBoxFor(model => model.RepMgrId, new { @class = "from-control", placeholder = "Reporting Manager" })
+            @Html.ValidationMessageFor(model => model.RepMgrId)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.MaritalStatus)
+            @Html.DropDownListFor(model => model.MaritalStatus, new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Married", Value = "Married" },
+                new SelectListItem { Text = "Single", Value = "Single" },
+                new SelectListItem { Text = "Divorced", Value = "Divorced" }
+            }, "Select Marital Status")
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Address)
+            @Html.TextBoxFor(model => model.Address, new { @class = "from-control", placeholder = "Address" })
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.MgrPassword)
+            @Html.PasswordFor(model => model.MgrPassword new { @class = "from-control", placeholder = "Password For Employee" })
+            @Html.ValidationMessageFor(model => model.MgrPassword)
+        </div>
+    </div>
+
+
+    <div class="button-container">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</div>
+}
+
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #5e87b8;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333333;
+        width: 50%; 
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"],
+    select {
+        width: 75%; 
+        padding: 8px;
+        margin-bottom: 12px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    .form-container {
+        background-color: #d5eeff;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 55%;
+        text-align: left;
+        box-sizing: border-box;
+        margin: auto; 
+        margin-top: 120px;
+    }
+
+    .form-fields {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+
+        .form-fields div {
+            width: 48%; 
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+            .form-fields div:nth-child(odd) {
+                margin-right: 4%; 
+            }
+
+        .form-fields label {
+            width: 100%;
+        }
+
+        .form-fields select,
+        .form-fields input[type="text"],
+        .form-fields input[type="password"],
+        .form-fields input[type="email"],
+        .form-fields input[type="date"] {
+            width: calc(100% - 8px);
+        }
+
+    .button-container {
+        text-align: center;
+        width: 80%;
+        margin: auto;
+        margin-top: 20px;
+        display: flex;
+        justify-content: safe center;
+    }
+
+    input[type="submit"] {
+        background-color: white;
+        color: black;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin: 0 2%; 
+        width: 40%; 
+    }
+
+        input[type="submit"]:hover {
+            background-color: #5e87b8;
+        }
+
+    h2 {
+        color: black;
+        font-size: large;
+    }
+
+    .field-validation-error {
+        color: red;
+        margin-top: 5px;
+    }
+</style>
